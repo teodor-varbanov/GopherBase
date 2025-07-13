@@ -8,12 +8,6 @@ import (
 	"github.com/gorilla/mux"
 )
 
-type Article struct {
-	ID      uint
-	Title   string
-	Content string
-}
-
 func main() {
 	dsn := flag.String("dsn", "host=PLACEHOLDER user=gopherbase password=PLACEHOLDER dbname=gopherbasedb port=5432 sslmode=disable TimeZone=Asia/Shanghai", "Connection string FLAG. Please edit the placeholders.")
 	// to-do: improve this, cause it's lame.
@@ -23,11 +17,11 @@ func main() {
 	if err != nil {
 		log.Fatalf("Can't open database due to: %v", err)
 	}
-	db.AutoMigrate(&Article{})
+	db.AutoMigrate(&BambooInfo{})
 
 	r := mux.NewRouter()
 	r.HandleFunc("/health", HealthCheck)
-	r.HandleFunc("/articles", ReadArticle).Methods("GET")
+	r.HandleFunc("/articles", ReadEndpoint).Methods("GET")
 	r.HandleFunc("/articles", WriteArticle).Methods("POST")
 
 	log.Println("Starting server on :8000")

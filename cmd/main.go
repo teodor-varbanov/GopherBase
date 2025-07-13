@@ -25,23 +25,12 @@ func main() {
 	}
 	db.AutoMigrate(&Article{})
 
-	id := uint(1)
-	title := "Bamboo shit"
-	content := "Content"
-	test := Article{
-		ID:      id,
-		Title:   title,
-		Content: content,
-	}
-
-	db.Create(&test)
-	// afterwards call db.Delete(&test) to clean up
-
 	r := mux.NewRouter()
 	r.HandleFunc("/health", HealthCheck)
 	r.HandleFunc("/articles", ReadArticle).Methods("GET")
 	r.HandleFunc("/articles", WriteArticle).Methods("POST")
 
+	log.Println("Starting server on :8000")
 	err = http.ListenAndServe(":8000", r)
 	if err != nil {
 		log.Fatalf("Server failed to start due to: %v", err)

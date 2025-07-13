@@ -15,8 +15,8 @@ func WriteArticle(w http.ResponseWriter, r *http.Request) {
 }
 
 func ReadArticle(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusOK)
-	fmt.Fprintf(w, "Response from ReadArticle")
+	// mock api
+	read(w, "https://bambooo.free.beeceptor.com/api/latest/result/bbd-ddb/latest")
 }
 
 func DeleteArticle(w http.ResponseWriter, r *http.Request) {
